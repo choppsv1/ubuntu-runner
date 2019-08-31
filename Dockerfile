@@ -6,11 +6,11 @@ ENV LANG=en_US.UTF-8 \
     LC_ALL="en_US.UTF-8" \
     LC_CTYPE="en_US.UTF-8"
 
-RUN apt-get update -qy && apt-get dist-upgrade -y && \
+RUN apt-get install -y apt-transport-https dirmngr software-properties-common curl && \
     # Add docker.
-    apt-get install -y apt-transport-https dirmngr software-properties-common && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
+    apt-get update -qy && apt-get dist-upgrade -y && \
     # Add useful stuff for building/CI-testing
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     bash bash-completion bsdtar cpio curl docker-ce git iputils-ping gettext jq \
